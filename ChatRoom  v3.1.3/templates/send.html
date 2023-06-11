@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ChatRoom - 发送窗口</title>
+<style>
+	body{
+		background-color: #F4F7FA;
+	}
+	.content {
+		resize:none;
+		width:95%;
+		font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "Microsoft Yahei", "sans-serif";
+		vertical-align: text-top;
+		font-size: 13pt;
+		padding-left: 1pc;
+		padding-right: 1pc;
+		height: 5pc; 
+		color: darkslategrey;
+		border: 1px solid;
+	}	
+	.name{
+		resize:none;
+		font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "Microsoft Yahei", "sans-serif";
+		font-size: 13pt;
+		padding-left: 1pc;
+		padding-right: 1pc;
+		height: 1.5pc;
+		color: darkslategrey;
+		border: 1px solid;
+	}
+	.button{
+		font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+		text-align: top;
+		vertical-align: middle;
+		font-weight: bold;
+		font-size: 20pt;
+		text-decoration-line: none;
+		padding-left: 10px;
+		padding-right: 10px;
+		color: white;
+		background-color: deepskyblue;
+		border: none;
+		border-radius: 50%;
+		box-shadow: 1px 1px 2px 0px #111111;
+		padding-bottom: 5px;
+	}
+	.hint{
+		font-family: SimSun;
+		font-size: 14pt;
+	
+	}
+	.header {
+		text-align: left;
+		font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, SimSun, "serif";
+		font-size: 16pt;
+		padding-top: 10px;
+		padding-right: 10px;
+		padding-left: 5pc;
+		padding-bottom: 10px;
+		background-color:#FFFFFF;
+		color: black;
+		box-shadow: 0px 1px 1px 1px #888888;
+	}
+	.phint {
+		color: darkslategray;
+		padding-left: 2pc;
+	}
+	.palert{
+		color: orangered;
+		padding-left: 2pc;
+	}
+	.title-bar {
+		position: fixed;
+		z-index: 1;
+		top: 0px;
+		left: 0px;
+		height: 50px;
+		width: 100%;
+	}
+	.main{
+		padding-bottom: 50px;
+		padding-top: 45px;
+	}
+</style>
+</head>
+
+<body>
+	<div class="title-bar">
+	  <table width="100%" cellspacing="0px">
+		  <tbody>
+			<tr>
+			  <td class="header" style="">Send Message</td>
+			</tr>
+		  </tbody>
+		</table>
+	</div>
+    <div class="main">
+	<p class="phint">{{python_hint}}</p>
+	<p class="palert">{{python_alert}}</p>
+	
+	<form method = "post">
+		<table class="area" align="center" width="95%" cellspacing="10px">
+		<tr>
+			<td width="80px" class="hint">用户名: </td>
+			<td><textarea name="name" class="name" type="text" maxlength="15" placeholder="输入最多15个字符">{{last}}</textarea></td>
+		</tr>
+		<tr>
+			<td width="80px" valign="top" class="hint">内容: </td>
+			<td><textarea name="text" class="content" type="text" maxlength="200" placeholder="输入最多200个字符"></textarea></td>
+			<td>
+				<input align="right" class="button" type="submit" οnclick="alert('已发送')"  value=">"></td>
+		</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>
