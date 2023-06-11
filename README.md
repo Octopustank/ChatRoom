@@ -12,7 +12,7 @@ This repository is created to witness how our project has been developed so far,
   
 The program is based on Flask, a simple framework for building complex web applications.
 # Latest Preview 最新预览
-not set yet
+![preview](https://github.com/Octopustank/ChatRoom/assets/113182591/9d9092bf-79cc-4049-a972-b2d582baf52e)
 # Features 功能
 · 局域网内实时聊天 live chat within LAN  
 · 文件传输 file upload&download  
