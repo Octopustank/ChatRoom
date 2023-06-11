@@ -24,4 +24,4 @@ Program: Kwicxy, Octopus_Tank
 User Interface: Kwicxy  
 Maintain: Octopus_Tank  
   
-And You
+*And You*
