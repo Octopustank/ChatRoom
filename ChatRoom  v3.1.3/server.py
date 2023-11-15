@@ -138,11 +138,11 @@ app.config['JSON_AS_ASCII'] = False
 app.secret_key = "hard"
 
 # 聊天主页面
-@app.route("/")          
+@app.route("/chatroom/")          
 def main():
     addr = request.remote_addr
     if not addr in USER_LST:            # 用户未注册，重定向至注册页面
-        return redirect('/register')
+        return redirect('/chatroom/register')
     else:
         userid = USER_LST[addr]
         if len(DATA_LST) == 0:
@@ -153,7 +153,7 @@ def main():
             DATA_LST=DATA_LST, addr=addr,  userid=userid, python_message="- 你看到我的底线了 -")
 
 # 发送窗口
-@app.route("/send", methods=["GET","POST"])          
+@app.route("/chatroom/send", methods=["GET","POST"])          
 def send():
     global floor
     if request.method == 'GET':
@@ -174,12 +174,12 @@ def send():
         return render_template('send.html', python_hint="发送成功！",last=name)
 
 # 新用户注册
-@app.route("/register", methods=["GET","POST"])
+@app.route("/chatroom/register", methods=["GET","POST"])
 def register():
     addr = request.remote_addr
     if request.method == 'GET':
         if addr in USER_LST:
-            return redirect('/')
+            return redirect('/chatroom/')
         else:
             return render_template("register.html", addr=addr)
     if request.method == 'POST':
@@ -197,17 +197,17 @@ def register():
 
         USER_LST[addr] = userid
         write_file(USERFILE,USER_LST)
-        return redirect("/")
+        return redirect("/chatroom/")
 
 # 消息历史记录
-@app.route("/backlog")
+@app.route("/chatroom/backlog")
 def backlog():
     addr = request.remote_addr
     userid = USER_LST[addr]
     return render_template("backlog.html", userid=userid, addr=addr, lst=BACK_LOG_LST, n=BACK_LOG_LEN)
 
 #文件传输
-@app.route("/downloads", methods=["GET","POST"])
+@app.route("/chatroom/downloads", methods=["GET","POST"])
 def filesending():
     addr = request.remote_addr
     if request.method=="GET":#查看/下载(GET)
@@ -223,7 +223,7 @@ def filesending():
             else:#查看
                 flash("文件不存在")
                 init_file_sending()#文件被删除，选择重新加载
-                return redirect('/downloads')
+                return redirect('/chatroom/downloads')
         else:#未传值
             return render_template("downloads.html", file_list=FILE_LIST[::-1], addr=addr)
     else:#上传文件(GET)
@@ -238,13 +238,13 @@ def filesending():
             FILE_LIST.append([file_name, time, addr, userid])
             write_file(PATH_FILE_JS, FILE_LIST)
             flash(f"文件上传为{file_name}")
-            return redirect('/downloads')
+            return redirect('/chatroom/downloads')
         else:
             flash("请选择文件！")
-            return redirect('/downloads')
+            return redirect('/chatroom/downloads')
 
 #刷新数据用(trap_door)
-@app.route("/refresh")
+@app.route("/chatroom/refresh")
 def refresh():
     global USER_LST
     mode = request.args.get("mode")
@@ -254,7 +254,7 @@ def refresh():
     elif mode == "files":
         init_file_sending()
         return f"刷新文件列表成功<p>{'<p>'.join(list(map(str,FILE_LIST)))}"
-    return redirect('/')
+    return redirect('/chatroom/')
 ########################################
 if __name__ =="__main__":
     init_file()
