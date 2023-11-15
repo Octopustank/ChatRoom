@@ -5,23 +5,8 @@ import os
 from urllib.parse import quote
 import sys
 #################### 判断Pyhon版本来判断使用场景 ####################
-PY_VERSION = sys.version.split(" ")[0]
-print(f"[Scene] RUNNING ON Python {PY_VERSION}")
-PY_VERSION = sum(map(lambda x:int(x[0])*x[1],zip(PY_VERSION.split("."),[10000,100,1])))
-if PY_VERSION >= 30810:
-    MODE = 1#非机房
-else:
-    MODE = 0#机房
-print(f"[Scene] USE {['COMPUTER_ROOM','OTHERS'][MODE]}")
-### 根据版本进行对应变动 ###
-if MODE == 0:
-    SEND_FILE = "send_file(path, as_attachment=True, attachment_filename=file_name)"
-    IP = "192.168.1.35"
-    PORT = 1145
-else:
-    SEND_FILE = "send_file(path, as_attachment=True, download_name=file_name)"
-    IP = "0.0.0.0"
-    PORT = 114
+IP = "0.0.0.0"
+PORT = 80
 
 #################### 工具函数和初始化 ####################
 # 获取工作路径
@@ -192,7 +177,7 @@ def register():
         if userid in USER_LST.values():
             return render_template("register.html", addr=addr, python_alert="该ID已被使用！")
         for char in userid:
-            if char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ":
+            if char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ _1234567890":
                 return render_template("register.html", addr=addr, python_alert="名称包含非法字符！")
 
         USER_LST[addr] = userid
@@ -216,8 +201,7 @@ def filesending():
             path = os.path.join(PATH_FILES, file)
             if os.path.isfile(path):#文件存在、是文件
                 file_name = quote(file)#把文件名转码
-##                file_response = send_file(path, as_attachment=True, attachment_filename=file_name)
-                file_response = eval(SEND_FILE)
+                file_response = send_file(path, as_attachment=True, attachment_filename=file_name)
                 file_response.headers["Content-Disposition"] += ";filename*=utf-8''{}".format(file_name)#把文件名转回UTF-8
                 return file_response
             else:#查看
