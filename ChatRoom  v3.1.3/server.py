@@ -184,10 +184,10 @@ def register():
             return render_template("register.html", addr=addr)
     if request.method == 'POST':
         userid = request.form.get("userid")
-        # ID要求判断：长度3~16，合法字符，未被使用
+        # ID要求判断：长度3~6，合法字符，未被使用
         if userid is None:
             return render_template("register.html", addr=addr, python_alert="ID名不能为空！")
-        if not( 2 <= len(userid) <= 4 ):
+        if not( 3 <= len(userid) <= 6 ):
             return render_template("register.html", addr=addr, python_alert="ID名长度不符合要求！")
         if userid in USER_LST.values():
             return render_template("register.html", addr=addr, python_alert="该ID已被使用！")
