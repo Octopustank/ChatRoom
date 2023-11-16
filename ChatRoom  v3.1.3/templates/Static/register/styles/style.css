@@ -151,6 +151,7 @@ nav ul li a {
 }
 #footerbar {
 	/* Footer bar at the bottom of the page */
+	margin-top: 20px;
 	height: 18px;
 	clear: both;
 	background-color: rgba(208,207,207,1.00);

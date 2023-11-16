@@ -25,13 +25,13 @@ def index():
         userid = USER_LST[addr]
         HOUR_NOW = dt.datetime.now().hour
         if HOUR_NOW in range(5,12):
-            return render_template("index.html", greetings="Good Morning", userid=userid)
+            return render_template("index.html", greetings="🌅 Good Morning", userid=userid, addr=addr)
         elif HOUR_NOW in range(12,18):
-            return render_template("index.html", greetings="Good Afternoon", userid=userid)
+            return render_template("index.html", greetings="🌞 Good Afternoon", userid=userid, addr=addr)
         elif HOUR_NOW in range(18,22):
-            return render_template("index.html", greetings="Good Evening", userid=userid)
+            return render_template("index.html", greetings="🌇 Good Evening", userid=userid, addr=addr)
         else:
-            return render_template("index.html", greetings="Good Night", userid=userid)
+            return render_template("index.html", greetings="🌙 Good Night", userid=userid, addr=addr)
 
 
 # 聊天主页面
@@ -77,25 +77,25 @@ def register():
     origin = request.args.get("from")
     if request.method == 'GET':
         if addr in USER_LST:
-            return redirect('/chatroom/')
+            return redirect('/')
         else:
-            return render_template("register.html", addr=addr)
+            return render_template("register1.html", addr=addr)
     if request.method == 'POST':
         userid = request.form.get("userid")
         # ID要求判断：长度3~6，合法字符，未被使用
         if userid is None:
-            return render_template("register.html", addr=addr, python_alert="ID名不能为空！")
+            return render_template("register1.html", addr=addr, python_alert="ID名不能为空！")
         if not( 3 <= len(userid) <= 6 ):
-            return render_template("register.html", addr=addr, python_alert="ID名长度不符合要求！")
+            return render_template("register1.html", addr=addr, python_alert="ID名长度不符合要求！")
         if userid in USER_LST.values():
-            return render_template("register.html", addr=addr, python_alert="该ID已被使用！")
+            return render_template("register1.html", addr=addr, python_alert="该ID已被使用！")
         for char in userid:
             if char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ _1234567890":
-                return render_template("register.html", addr=addr, python_alert="名称包含非法字符！")
+                return render_template("register1.html", addr=addr, python_alert="名称包含非法字符！")
 
         USER_LST[addr] = userid
         write_file(USERFILE,USER_LST)
-        return redirect("/chatroom/")
+        return redirect("/")
 
 # 消息历史记录
 @app.route("/chatroom/backlog")

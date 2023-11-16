@@ -22,35 +22,42 @@
   <div id="content">
     <div class="notOnDesktop"> 
       <!-- This box is displayed only in mobile and tablet laouts and not in desktop layouts -->
-      <p align="left">You are visiting through a mobile device.</p>
+      <p align="left">The page might be weird to be viewed from a mobile device.</p>
     </div>
     <section id="mainContent"> 
       <!--************************************************************************
     Main Blog content starts here
     ****************************************************************************-->
       <h1><!-- Blog title -->{{greetings}}, {{userid}}</h1>
-      <h3><!-- Tagline -->Welcome to visit us in a little corner of the Web!</h3>
+      <h3>
+        <!-- Tagline -->
+        Using IP: {{addr}},  Welcome to visit us at a little corner of the Web!</h3>
       <div id="bannerImage"><img src="{{ url_for('static',filename='index/images/banner.png') }}" alt=""/></div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+      <p>littlecorner.space, A Space for a Group of Teens Pursuing Dreams </p>
+		<p>This site is set up to be a continuation of works done by a couple of teens.<br/>
+		The project was initially launched for chat using LAN in school.<br/>
+		This site will witness how our project has been developed so far, and will record its future developments.<br/>
+		The program is based on Flask, a simple framework for building complex web applications.</p>
       <aside id="authorInfo"> 
         <!-- The author information is contained here -->
-        <h2>Author Name</h2>
+        <h2>Tingkuan, Zhang and Yuchen, Xue Presents</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </aside>
     </section>
     <section id="sidebar"> 
       <!--************************************************************************
-    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
+    Sidebar starts here. It contains a box, sample image and 6 links
     ****************************************************************************-->
+	  <h2>Project Links</h2>
       <div id="adimage"><img src="{{ url_for('static',filename='index/images/sidebar.gif') }}" alt=""/></div>
       <nav>
         <ul>
-          <li><a href="chatroom/" title="Link">Chatroom</a></li>
-          <li><a href="#" title="Link">Link2</a></li>
-          <li><a href="#" title="Link">Link3</a></li>
-          <li><a href="#" title="Link">Link4</a></li>
-          <li><a href="#" title="Link">Link5</a></li>
-          <li><a href="#" title="Link">Link6</a></li>
+          <li><a href="chatroom/" title="Link">→ Chatroom</a></li>
+          <li><a href="#" title="Link">→ Link2</a></li>
+          <li><a href="#" title="Link">→ Link3</a></li>
+          <li><a href="#" title="Link">→ Link4</a></li>
+          <li><a href="#" title="Link">→ Link5</a></li>
+          <li><a href="#" title="Link">→ Link6</a></li>
         </ul>
       </nav>
     </section>
