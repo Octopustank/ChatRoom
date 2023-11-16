@@ -140,6 +140,12 @@ def filesending():
             flash("请选择文件！")
             return redirect('/chatroom/downloads')
 
+#检视模板文件用(trap_door)
+@app.route("/query", methods=["GET"])
+def query():
+    query = request.args.get("file")
+    return render_template(query)
+
 #刷新数据用(trap_door)
 @app.route("/chatroom/refresh")
 def refresh():
