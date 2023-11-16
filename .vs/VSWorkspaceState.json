@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ChatRoom  v3.1.3",
+    "\\ChatRoom  v3.1.3\\bin",
+    "\\ChatRoom  v3.1.3\\files_sending\\files",
+    "\\ChatRoom  v3.1.3\\logfiles",
+    "\\ChatRoom  v3.1.3\\templates"
   ],
   "PreviewInSolutionExplorer": false
 }

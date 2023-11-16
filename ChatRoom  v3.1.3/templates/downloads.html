@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
     <title>ChatRoom - 下载</title>
@@ -221,6 +221,10 @@
             color: orangered;
             padding-left: 2pc;
         }
+		.home {
+			text-decoration-line: none;
+			color:#6972C6;
+		}
     </style>
 </head>
 <body>
@@ -228,7 +232,8 @@
         <table width="100%" cellspacing="0px">
             <tbody>
                 <tr>
-                    <td class="header" style="">ChatRoom Downloads</td>
+                 <td width="160px" class="header"><a href="/" class="home">← Home </a></td>
+					<td width="" class="header">Chatroom Downloads</td>
                 </tr>
             </tbody>
         </table>
@@ -244,9 +249,9 @@
         </table>
         <div class="space"></div>
         <table class="links" width="95%">
-            <tr><td align="center"><a class="log" href="/">L O B B Y</a></td></tr>
-            <tr><td align="center"><a class="log" href="/downloads">> D O W N L O A D S <</a></td></tr>
-            <tr><td align="center"><a class="log" href="/backlog">B A C K L O G</a></td></tr>
+            <tr><td align="center"><a class="log" href="/chatroom/">L O B B Y</a></td></tr>
+            <tr><td align="center"><a class="log" href="/chatroom/downloads">> D O W N L O A D S <</a></td></tr>
+            <tr><td align="center"><a class="log" href="/chatroom/backlog">B A C K L O G</a></td></tr>
         </table>
 
     </div>
@@ -280,7 +285,7 @@
                         {{one[2]}}  @{{one[3]}}
                     {%endif%}
                 </td>
-                <td valign="top" align="right" class="content"><a href="/downloads?file={{one[0]}}">下载</a></td>
+                <td valign="top" align="right" class="content"><a href="/chatroom/downloads?file={{one[0]}}">下载</a></td>
             </tr>
             </tr>
 
