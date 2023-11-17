@@ -22,7 +22,9 @@ def init_file():
     LOGFILE = os.path.join(logfiles,f"{DATE_STR}.json")
     bin_ = os.path.join(PATH,"bin")
     USERFILE = os.path.join(bin_,"users.json")
-    USER_LST = read_file(USERFILE)
+    UIDFILE = os.path.join(bin_,"uid.json")
+    UIDB = read_file(UIDFILE)
+    USERDB = read_file(USERFILE)
     # 如果当天已存在日志文件，则接着盖楼，否则新建
     if os.path.isfile(LOGFILE):
         DATA_LST = read_file(LOGFILE)
@@ -31,7 +33,7 @@ def init_file():
     else: 
         floor = 1
         print("[INIT] 无已存在日志")
-    return [DATA_LST, LOGFILE, USER_LST, USERFILE, floor]
+    return [DATA_LST, LOGFILE, UIDB, UIDFILE, USERDB, USERFILE, floor]
 
 # 前7天（最多）历史记录初始化
 def init_backlog():

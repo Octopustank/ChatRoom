@@ -26,27 +26,23 @@
     Main Blog content starts here
     ****************************************************************************-->
       <h1><!-- Blog title -->Welcome to visit us at a little corner of the Web!</h1>
-      <h3>
-        <!-- Tagline -->
-        New Here? Finish just a few steps and let's begin!</h3>
+      
       <aside id="authorInfo"> 
         <!-- The author information is contained here -->
-        <h2>New User Registration</h2>
+        <h2>Log In</h2>
         <form method = "post">
 		<table align="center" width="95%" cellspacing="10px">
+		
 		<tr>
-			<td colspan="2">Let us know who you are!</td>	
-		</tr>
-		<tr>
-			<td colspan="2">For convenience, a <strong>Real Name</strong> is needed.</td>	
-		</tr>
-		<tr>
-			<td colspan="2">The Username consists 3~6 characters including alpha, digits, underscores, and spaces.</td>	
-		</tr>
-		<tr>
-			<td width="180px" >Your Username: @</td>
+			<td width="180px" >Account Name:</td>
 			<td>
-				<textarea draggable="false" rows="1" name="userid" class="name" type="text" maxlength="6" placeholder="your name please"></textarea>
+				<textarea draggable="false" rows="1" name="userid" type="text" maxlength="6" placeholder="your name please"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="180px" >Password:</td>
+			<td>
+				<textarea draggable="false" rows="1" name="pwd" type="password" maxlength="30" placeholder="password"></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -60,6 +56,9 @@
 		</tr>
 		</table>
 	</form>
+		<p>
+        <!-- Tagline -->
+        New Here? <a href="/register">Click Here</a> to create an account.</p>
       </aside>
     </section>
     <section id="sidebar"> 

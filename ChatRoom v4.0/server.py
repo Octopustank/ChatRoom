@@ -1,29 +1,28 @@
 '''  ChatRoom  主程序  '''
-''' v 3.2.0 - new era '''
+''' v 4.0 - brand new era '''
 
-from flask import Flask, render_template, request, redirect, send_file, flash
+from flask import Flask, make_response, render_template, request, redirect, send_file, flash, session
 import datetime as dt
-import json as js
 import os
 from urllib.parse import quote
-import sys
 from init import *
 
 IP = "0.0.0.0"
 PORT = 80
 
-app = Flask("chat_room", static_url_path="/static", static_folder="./templates/static")
+app = Flask("chat_room")
 app.config['JSON_AS_ASCII'] = False
 app.secret_key = "hard"
+
 
 # 主页
 @app.route("/")
 def index():
     addr = request.remote_addr
-    if not addr in USER_LST:            # 用户未注册，重定向至注册页面
-        return redirect('/register')
+    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+        return redirect('/login')
     else:
-        userid = USER_LST[addr]
+        userid = USERDB[session.get("account")][0]
         HOUR_NOW = dt.datetime.now().hour
         if HOUR_NOW in range(5,12):
             return render_template("index.html", greetings="🌅 Good Morning", userid=userid, addr=addr)
@@ -34,15 +33,14 @@ def index():
         else:
             return render_template("index.html", greetings="🌙 Good Night", userid=userid, addr=addr)
 
-
 # 聊天主页面
 @app.route("/chatroom/")          
 def main():
     addr = request.remote_addr
-    if not addr in USER_LST:            # 用户未注册，重定向至注册页面
-        return redirect('/register')
+    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+        return redirect('/login')
     else:
-        userid = USER_LST[addr]
+        userid = USERDB[session.get("account")][0]
         if len(DATA_LST) == 0:
             return render_template("chatroom.html", 
             DATA_LST=DATA_LST, addr=addr, userid=userid, python_message="- 还没有消息记录  快来抢沙发吧 -")
@@ -54,61 +52,96 @@ def main():
 @app.route("/chatroom/send", methods=["GET","POST"])          
 def send():
     global floor
-    if request.method == 'GET':
-        return render_template('send.html')
-    if request.method == 'POST':
-        addr = request.remote_addr
-        userid = USER_LST[addr]
-        name = request.form.get("name")
-        text = request.form.get("text")
-        if not all([name,text]):
-            return render_template('send.html', python_alert="用户名/内容不能为空！")
-        TIME_NOW = dt.datetime.now().strftime("%m/%d %H:%M:%S")
-        if len(DATA_LST) != 0:
-            floor = DATA_LST[-1][1]+1
+    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+        return redirect('/login')
+    else:
+        if request.method == 'GET':
+            return render_template('send.html')
+        if request.method == 'POST':
+            addr = request.remote_addr
+            userid = session.get("name")
+            name = request.form.get("name")
+            text = request.form.get("text")
+            if not all([name,text]):
+                return render_template('send.html', python_alert="用户名/内容不能为空！")
+            TIME_NOW = dt.datetime.now().strftime("%m/%d %H:%M:%S")
+            if len(DATA_LST) != 0:
+                floor = DATA_LST[-1][1]+1
 
-        DATA_LST.append([TIME_NOW, floor, name, addr, userid, text])
-        write_file(LOGFILE,DATA_LST)
-        return render_template('send.html', python_hint="发送成功！",last=name)
+            DATA_LST.append([TIME_NOW, floor, name, addr, userid, text])
+            write_file(LOGFILE,DATA_LST)
+            return render_template('send.html', python_hint="发送成功！",last=name)
+
+# 登录
+@app.route("/login", methods=["GET","POST"])
+def login():
+    if request.method == 'GET':
+        if session.get("account") is not None:
+            return redirect('/')
+        else:
+            return render_template("login.html")
+    if request.method == 'POST':
+        username = request.form.get("userid")
+        pwd = request.form.get("pwd")
+        if username in UIDB:
+            uid = UIDB[username]
+            if pwd == USERDB[uid][1]:
+                session['account'] = uid
+                return redirect('/')
+            else: return render_template("login.html", python_alert="Incorrect password.")
+        else: return render_template("login.html", python_alert="Account does not exist.")
+                
+# 登出
+@app.route("/logout")
+def logout():
+    session.pop("account")
+    return redirect("/login")
 
 # 新用户注册
 @app.route("/register", methods=["GET","POST"])
 def register():
-    addr = request.remote_addr
-    origin = request.args.get("from")
     if request.method == 'GET':
-        if addr in USER_LST:
+        if session.get("account") is not None:
             return redirect('/')
         else:
-            return render_template("register1.html", addr=addr)
+            return render_template("register1.html")
     if request.method == 'POST':
-        userid = request.form.get("userid")
-        # ID要求判断：长度3~6，合法字符，未被使用
-        if userid is None:
-            return render_template("register1.html", addr=addr, python_alert="ID名不能为空！")
-        if not( 3 <= len(userid) <= 6 ):
-            return render_template("register1.html", addr=addr, python_alert="ID名长度不符合要求！")
-        if userid in USER_LST.values():
-            return render_template("register1.html", addr=addr, python_alert="该ID已被使用！")
-        for char in userid:
+        username = request.form.get("userid")
+        pwd = request.form.get("pwd")
+        pwd2 = request.form.get("pwd2")
+        # 用户名密码是否符合要求
+        if username is None or pwd is None or pwd2 is None:
+            return render_template("register1.html", python_alert="ERROR: At least one column is empty!")
+        if not(len(username) in range(3,17)) or not (len(pwd) in range(8,31)):
+            print(pwd,pwd2,username)
+            return render_template("register1.html", python_alert="ERROR: Invalid length of column!")
+        if username in UIDB:
+            return render_template("register1.html", python_alert="ERROR: Account name already in use!")
+        for char in username:
             if char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ _1234567890":
-                return render_template("register1.html", addr=addr, python_alert="名称包含非法字符！")
-
-        USER_LST[addr] = userid
-        write_file(USERFILE,USER_LST)
-        return redirect("/")
+                return render_template("register1.html", python_alert="ERROR: Invalid character(s) found in column!")
+        if pwd != pwd2:
+            return render_template("register1.html", python_alert="ERROR: Password mismatched!")
+        
+        uid = max(UIDB.values())+1
+        UIDB[username] = uid
+        write_file(UIDFILE,UIDB)
+        USERDB.append([username, pwd])
+        write_file(USERFILE,USERDB)
+        return redirect("/login")
 
 # 消息历史记录
 @app.route("/chatroom/backlog")
 def backlog():
     addr = request.remote_addr
-    userid = USER_LST[addr]
+    userid = session.get("account")
     return render_template("backlog.html", userid=userid, addr=addr, lst=BACK_LOG_LST, n=BACK_LOG_LEN)
 
 #文件传输
 @app.route("/chatroom/downloads", methods=["GET","POST"])
 def filesending():
     addr = request.remote_addr
+    userid = session.get("account")
     if request.method=="GET":#查看/下载(GET)
         file = request.args.get("file")
         if file is not None:#下载
@@ -123,7 +156,7 @@ def filesending():
                 init_file_sending()#文件被删除，选择重新加载
                 return redirect('/chatroom/downloads')
         else:#未传值
-            return render_template("downloads.html", file_list=FILE_LIST[::-1], addr=addr)
+            return render_template("downloads.html", file_list=FILE_LIST[::-1], addr=addr, userid=userid)
     else:#上传文件(GET)
         file = request.files["file"]
         if addr in USER_LST:
@@ -163,7 +196,7 @@ def refresh():
 ########################################
 if __name__ =="__main__":
     PATH = init_path()
-    DATA_LST, LOGFILE, USER_LST, USERFILE, floor = init_file()
+    DATA_LST, LOGFILE, UIDB, UIDFILE, USERDB, USERFILE, floor = init_file()
     BACK_LOG_LST, BACK_LOG_LEN = init_backlog()
     PATH_FILE_JS, PATH_FILES, FILE_LIST = init_file_sending()
     app.run(host=IP, port=PORT, debug=True)
