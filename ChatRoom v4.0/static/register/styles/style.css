@@ -77,6 +77,11 @@ header nav a {
 	padding-bottom: 11px;
 	padding-right: 2%;
 }
+
+#content #mainContent #authorInfo textarea {
+	font-family: Courier New, Courier, monospace;
+}
+
 footer article {
 	/* Footer articles */
 	width: 46%;

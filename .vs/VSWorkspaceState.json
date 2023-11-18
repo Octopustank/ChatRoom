@@ -1,15 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ChatRoom  v3.2.0",
-    "\\ChatRoom  v3.2.0\\bin",
-    "\\ChatRoom  v3.2.0\\files_sending",
-    "\\ChatRoom  v3.2.0\\logfiles",
-    "\\ChatRoom  v3.2.0\\static",
-    "\\ChatRoom  v3.2.0\\static\\register",
-    "\\ChatRoom  v3.2.0\\static\\register\\styles",
-    "\\ChatRoom  v3.2.0\\templates"
+    "\\ChatRoom v4.0",
+    "\\ChatRoom v4.0\\bin",
+    "\\ChatRoom v4.0\\logfiles"
   ],
-  "SelectedNode": "\\ChatRoom  v3.2.0\\server.py",
+  "SelectedNode": "\\ChatRoom v4.0\\server.py",
   "PreviewInSolutionExplorer": false
 }

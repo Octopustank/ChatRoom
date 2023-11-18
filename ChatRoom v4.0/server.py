@@ -1,7 +1,7 @@
-'''  ChatRoom  主程序  '''
-''' v 4.0 - brand new era '''
+'''  服务器主程序  '''
+''' v 4.1 - error and account management '''
 
-from flask import Flask, make_response, render_template, request, redirect, send_file, flash, session
+from flask import Flask, render_template, request, redirect, send_file, flash, session
 import datetime as dt
 import os
 from urllib.parse import quote
@@ -59,7 +59,7 @@ def send():
             return render_template('send.html')
         if request.method == 'POST':
             addr = request.remote_addr
-            userid = session.get("name")
+            userid = USERDB[session.get("account")][0]
             name = request.form.get("name")
             text = request.form.get("text")
             if not all([name,text]):
@@ -130,6 +130,43 @@ def register():
         write_file(USERFILE,USERDB)
         return redirect("/login")
 
+# 用户管理
+@app.route("/account",methods=["GET","POST"])
+def account():
+    if request.method == 'GET':
+        if session.get("account") is None:
+            return redirect('/login')
+        else:
+            uid = session.get("account")
+            userid = USERDB[uid][0]
+            pwd = USERDB[uid][1]
+            return render_template("account.html",userid=userid, uid=uid)
+    if request.method == 'POST':
+        uid = session.get("account")
+        userid = USERDB[uid][0]
+        
+        username = request.form.get("userid")
+        pwd = request.form.get("pwd")
+        pwd2 = request.form.get("pwd2")
+        # 用户名密码是否符合要求
+        if username is None or pwd is None or pwd2 is None:
+            return render_template("account.html",userid=userid, uid=uid, python_alert="ERROR: At least one column is empty!")
+        if not(len(username) in range(3,17)) or not (len(pwd) in range(8,31)):
+            print(pwd,pwd2,username)
+            return render_template("account.html",userid=userid, uid=uid, python_alert="ERROR: Invalid length of column!")
+        for char in username:
+            if char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ _1234567890":
+                return render_template("account.html",userid=userid, uid=uid, python_alert="ERROR: Invalid character(s) found in column!")
+        if pwd != pwd2:
+            return render_template("account.html",userid=userid, uid=uid, python_alert="ERROR: Password mismatched!")
+        
+        UIDB.pop(userid)
+        UIDB[username] = uid
+        write_file(UIDFILE,UIDB)
+        USERDB[uid]=[username, pwd]
+        write_file(USERFILE,USERDB)
+        return redirect("/logout")
+
 # 消息历史记录
 @app.route("/chatroom/backlog")
 def backlog():
@@ -192,6 +229,10 @@ def refresh():
         init_file_sending()
         return f"刷新文件列表成功<p>{'<p>'.join(list(map(str,FILE_LIST)))}"
     return redirect('/chatroom/')
+
+@app.errorhandler(404)  # 传入错误码作为参数状态
+def error404(error):  # 接受错误作为参数
+    return render_template("404.html"), 404  
 
 ########################################
 if __name__ =="__main__":
