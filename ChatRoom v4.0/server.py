@@ -8,7 +8,7 @@ from urllib.parse import quote
 from init import *
 
 IP = "0.0.0.0"
-PORT = 80
+PORT = 114
 
 app = Flask("chat_room")
 app.config['JSON_AS_ASCII'] = False
@@ -185,7 +185,7 @@ def filesending():
             path = os.path.join(PATH_FILES, file)
             if os.path.isfile(path):#文件存在、是文件
                 file_name = quote(file)#把文件名转码
-                file_response = send_file(path, as_attachment=True, attachment_filename=file_name)
+                file_response = send_file(path, as_attachment=True, download_name=file_name)
                 file_response.headers["Content-Disposition"] += ";filename*=utf-8''{}".format(file_name)#把文件名转回UTF-8
                 return file_response
             else:#查看
@@ -196,9 +196,6 @@ def filesending():
             return render_template("downloads.html", file_list=FILE_LIST[::-1], addr=addr, userid=userid)
     else:#上传文件(GET)
         file = request.files["file"]
-        if addr in USER_LST:
-            userid = USER_LST[addr]
-        else:userid = "Unknown"
         if file:
             file_path, file_name = check_filename(PATH_FILES, file.filename)
             file.save(file_path)
