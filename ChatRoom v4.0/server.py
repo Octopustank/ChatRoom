@@ -19,10 +19,11 @@ app.secret_key = "hard"
 @app.route("/")
 def index():
     addr = request.remote_addr
-    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+    uid = session.get("account")
+    if uid is None:            # 用户未注册，重定向至注册页面
         return redirect('/login')
     else:
-        userid = USERDB[session.get("account")][0]
+        userid = USERDB[uid][0]
         HOUR_NOW = dt.datetime.now().hour
         if HOUR_NOW in range(5,12):
             return render_template("index.html", greetings="🌅 Good Morning", userid=userid, addr=addr)
@@ -37,10 +38,11 @@ def index():
 @app.route("/chatroom/")          
 def main():
     addr = request.remote_addr
-    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+    uid = session.get("account")
+    if uid is None:            # 用户未注册，重定向至注册页面
         return redirect('/login')
     else:
-        userid = USERDB[session.get("account")][0]
+        userid = USERDB[uid][0]
         if len(DATA_LST) == 0:
             return render_template("chatroom.html", 
             DATA_LST=DATA_LST, addr=addr, userid=userid, python_message="- 还没有消息记录  快来抢沙发吧 -")
@@ -52,14 +54,15 @@ def main():
 @app.route("/chatroom/send", methods=["GET","POST"])          
 def send():
     global floor
-    if session.get("account") is None:            # 用户未注册，重定向至注册页面
+    uid = session.get("account")
+    if uid is None:            # 用户未注册，重定向至注册页面
         return redirect('/login')
     else:
         if request.method == 'GET':
             return render_template('send.html')
         if request.method == 'POST':
             addr = request.remote_addr
-            userid = USERDB[session.get("account")][0]
+            userid = USERDB[uid][0]
             name = request.form.get("name")
             text = request.form.get("text")
             if not all([name,text]):
@@ -134,10 +137,10 @@ def register():
 @app.route("/account",methods=["GET","POST"])
 def account():
     if request.method == 'GET':
-        if session.get("account") is None:
+        uid = session.get("account")
+        if uid is None:
             return redirect('/login')
         else:
-            uid = session.get("account")
             userid = USERDB[uid][0]
             pwd = USERDB[uid][1]
             return render_template("account.html",userid=userid, uid=uid)
@@ -175,38 +178,42 @@ def backlog():
     return render_template("backlog.html", userid=userid, addr=addr, lst=BACK_LOG_LST, n=BACK_LOG_LEN)
 
 #文件传输
-@app.route("/chatroom/downloads", methods=["GET","POST"])
+@app.route("/cloud", methods=["GET","POST"])
 def filesending():
-    addr = request.remote_addr
-    userid = session.get("account")
+    uid = session.get("account")
     if request.method=="GET":#查看/下载(GET)
-        file = request.args.get("file")
-        if file is not None:#下载
-            path = os.path.join(PATH_FILES, file)
-            if os.path.isfile(path):#文件存在、是文件
-                file_name = quote(file)#把文件名转码
-                file_response = send_file(path, as_attachment=True, download_name=file_name)
-                file_response.headers["Content-Disposition"] += ";filename*=utf-8''{}".format(file_name)#把文件名转回UTF-8
-                return file_response
-            else:#查看
-                flash("文件不存在")
-                init_file_sending()#文件被删除，选择重新加载
-                return redirect('/chatroom/downloads')
-        else:#未传值
-            return render_template("downloads.html", file_list=FILE_LIST[::-1], addr=addr, userid=userid)
+        if uid is None:            # 用户未注册，重定向至注册页面
+            return redirect('/login')
+        else:
+            username = USERDB[uid][0]
+            file = request.args.get("file")
+            if file is not None:#下载
+                path = os.path.join(PATH_FILES, file)
+                if os.path.isfile(path):#文件存在、是文件
+                    file_name = quote(file)#把文件名转码
+                    file_response = send_file(path, as_attachment=True, download_name=file_name)
+                    file_response.headers["Content-Disposition"] += ";filename*=utf-8''{}".format(file_name)#把文件名转回UTF-8
+                    return file_response
+                else:#查看
+                    flash("The selected file doesn't exist")
+                    init_file_sending()#文件被删除，选择重新加载
+                    return redirect('/cloud')
+            else:#未传值
+                return render_template("cloud.html", file_list=FILE_LIST[::-1], userid=username)
     else:#上传文件(GET)
         file = request.files["file"]
+        username = USERDB[uid][0]
         if file:
             file_path, file_name = check_filename(PATH_FILES, file.filename)
             file.save(file_path)
-            time = dt.datetime.now().strftime("%m/%d %H:%M:%S")
-            FILE_LIST.append([file_name, time, addr, userid])
+            time = dt.datetime.now().strftime("%m/%d %H:%M")
+            FILE_LIST.append([file_name, time, username, uid])
             write_file(PATH_FILE_JS, FILE_LIST)
-            flash(f"文件上传为{file_name}")
-            return redirect('/chatroom/downloads')
+            flash(f"File Uploaded: {file_name}")
+            return redirect('/cloud')
         else:
-            flash("请选择文件！")
-            return redirect('/chatroom/downloads')
+            flash("Select a file.")
+            return redirect('/cloud')
 
 #检视模板文件用(trap_door)
 @app.route("/query", methods=["GET"])

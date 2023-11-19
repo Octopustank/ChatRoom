@@ -3,7 +3,10 @@
     "",
     "\\ChatRoom v4.0",
     "\\ChatRoom v4.0\\bin",
-    "\\ChatRoom v4.0\\logfiles"
+    "\\ChatRoom v4.0\\files_sending",
+    "\\ChatRoom v4.0\\files_sending\\files",
+    "\\ChatRoom v4.0\\logfiles",
+    "\\ChatRoom v4.0\\static"
   ],
   "SelectedNode": "\\ChatRoom v4.0\\server.py",
   "PreviewInSolutionExplorer": false
