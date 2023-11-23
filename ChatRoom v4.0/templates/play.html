@@ -30,49 +30,13 @@
     ****************************************************************************-->
       <h1><!-- Blog title -->Little Corner Cloud Space</h1>
       <form action="" method="post" enctype="multipart/form-data">
-            <p class="phint">
-                File Upload: 
-                <input type="file" name="file">
-                <input type="submit" value="Upload">
-                <p class="phint">{{python_hint}}</p>
-                <p class="palert">{{python_alert}}</p>
-                <p class="phint">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-					 {{messages[0][-1]}} 
-                      {% endif %}
-                {% endwith %}
-                </p>
-            </p>
+            
         </form>
       <aside id="authorInfo"> 
         <!-- The author information is contained here -->
-        <h2>Files on Cloud</h2>
-        {%for one in file_list%}
-        <table class="forum" align="center" frame="hsides" width="90%" cellspacing="0px">
-
-            <tr>
-                <td class="sender" width="130px">{{one[0]}}</td>
-				<td> </td>
-                <td align="right" class="time" width="30px">{{one[1]}}</td>
-            <tr>
-                <td align="left" class="address" width="80%">
-                    {%if one[2]%}
-                        {{one[2]}}  UID: {{one[3]}}
-                    {%endif%}
-                </td>
-				{%if one[0].endswith(".mp4")%}
-                	<td width="10%" valign="top" align="right"><a  href="/play?file={{one[0]}}">Preview</a></td>
-				{%else%}
-					<td> </td>
-				{%endif%}
-                <td width="10%" valign="top" align="right"><a href="/cloud?file={{one[0]}}">Download</a></td>
-            </tr>
-            </tr>
-
-        </table>
-        {%endfor%}
-	  <p style="color: aliceblue">space</p>
+        <h2>Online Playback</h2>
+	  <video  controls="true" src="{{ url_for('static',filename=pyfilepath) }}"></video>
+	  <p>{{pyfilename}}</p>
       </aside>
     </section>
     <section id="sidebar"> 

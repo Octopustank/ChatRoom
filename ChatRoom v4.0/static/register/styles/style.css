@@ -99,6 +99,11 @@ header nav a {
 	color: darkslateblue;
 }
 
+#content #mainContent #authorInfo video {
+	margin-left: 5%;
+	width: 90%;
+}
+
 #content #mainContent #authorInfo textarea {
 	font-family: Courier New, Courier, monospace;
 }

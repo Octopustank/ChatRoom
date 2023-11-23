@@ -8,7 +8,7 @@ from urllib.parse import quote
 from init import *
 
 IP = "0.0.0.0"
-PORT = 114
+PORT = 80
 
 app = Flask("chat_room")
 app.config['JSON_AS_ASCII'] = False
@@ -214,6 +214,25 @@ def filesending():
         else:
             flash("Select a file.")
             return redirect('/cloud')
+
+# 文件在线预览
+@app.route("/play")
+def play():
+    uid = session.get("account")
+    if uid is None:            # 用户未注册，重定向至注册页面
+        return redirect('/login')
+    else:
+        file = request.args.get("file")
+        if file is not None:
+            path = os.path.join(PATH_FILES, file)
+            if os.path.isfile(path):
+                file_name = "files_sending/files/"+file
+                return render_template("play.html", pyfilepath=file_name, pyfilename = file)
+            else:
+                init_file_sending()
+                return render_template("play.html", pyfilepath="", pyfilename = "Nothing to Play.")
+        else:
+            return render_template("play.html", pyfilepath="", pyfilename = "Nothing to Play.")
 
 #检视模板文件用(trap_door)
 @app.route("/query", methods=["GET"])
