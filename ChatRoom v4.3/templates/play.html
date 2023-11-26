@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Register] Little Corner</title>
+<title>[Cloud] Little Corner</title>
 <link href="{{ url_for('static',filename='register/styles/style.css') }}" rel="stylesheet" type="text/css">
 <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
 </head>
@@ -15,6 +15,9 @@
     Header starts here. It contains Logo and 3 navigation links. 
     ****************************************************************************-->
     <div id="logo"><!-- <img src="logoImage.png" alt="sample logo"> --><!-- Company Logo text -->Little Corner .space</div>
+	 <nav> <a href="/" title="Homepage" style="color:white">Home</a> 
+		<a href="/account" title="Manage Your Account" style="color:white">Account</a>
+		<a href="/logout" title="See You!" style="color:white">Logout</a> </nav>
   </header>
   <div id="content">
     <div class="notOnDesktop"> 
@@ -25,56 +28,15 @@
       <!--************************************************************************
     Main Blog content starts here
     ****************************************************************************-->
-      <h1><!-- Blog title -->Welcome to visit us at a little corner of the Web!</h1>
-      <h3>
-        <!-- Tagline -->
-        Finish just a few steps and let's begin!</h3>
+      <h1><!-- Blog title -->Little Corner Cloud Space</h1>
+      <form action="" method="post" enctype="multipart/form-data">
+            
+        </form>
       <aside id="authorInfo"> 
         <!-- The author information is contained here -->
-        <h2>New User Registration</h2>
-        <form method = "post">
-		<table align="center" width="95%" cellspacing="10px">
-		<tr>
-			<td colspan="2">Let us know who you are!</td>	
-		</tr>
-		<tr>
-			<td colspan="2">For convenience, a <strong>Real Name</strong> is recommended.</td>	
-		</tr>
-		<tr>
-			<td colspan="2">Alpha, digits, underscores, and spaces are accepted.</td>	
-		</tr>
-		<tr>
-			<td width="180px" >Account Name:</td>
-			<td>
-				<textarea draggable="false" rows="1" name="userid" type="text" maxlength="16" placeholder="3-16 characters"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td width="180px" >Password:</td>
-			<td>
-				<textarea draggable="false" rows="1" name="pwd" type="password" maxlength="30" placeholder="8-30 characters"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td width="180px" >Confirm:</td>
-			<td>
-				<textarea draggable="false" rows="1" name="pwd2" type="password" maxlength="30" placeholder="password again"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input align="right" class="button" type="submit" οnclick="alert('已发送')"  value=" Next ">
-			</td>
-			<td>
-				<p class="phint">{{python_hint}}</p>
-				<p class="palert">{{python_alert}}</p>
-			</td>
-		</tr>
-		</table>
-	</form>
-		<p>
-        <!-- Tagline -->
-        Already have an account? <a href="/login">Click Here</a> to Login!</p>
+        <h2>Online Playback</h2>
+	  <video  controls="true" src="{{ fileurl }}"></video>
+	  <p>{{pyfilename}}</p>
       </aside>
     </section>
     <section id="sidebar"> 
@@ -84,8 +46,8 @@
 	  <h2>Our Projects</h2>
       <nav>
         <ul>
-          <li><a href="#" title="Link">Chatroom</a></li>
-          <li><a href="#" title="Link">Cloud</a></li>
+          <li><a href="/chatroom" title="Link">Chatroom</a></li>
+          <li><a href="/cloud" title="Link">Cloud</a></li>
           <li><a href="#" title="Link">Link3</a></li>
           <li><a href="#" title="Link">Link4</a></li>
           <li><a href="#" title="Link">Link5</a></li>

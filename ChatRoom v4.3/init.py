@@ -63,7 +63,7 @@ def init_backlog():
 #初始化文件传输
 def init_file_sending():
     print("[INIT] READ FILE_LIST")
-    path = os.path.join(PATH, "static", "files_sending")
+    path = os.path.join(PATH, "cloud")
     PATH_FILES = os.path.join(path, "files")
     PATH_FILE_JS = os.path.join(path, "file_data.json")
 

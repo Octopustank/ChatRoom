@@ -29,7 +29,7 @@
     Main Blog content starts here
     ****************************************************************************-->
       <h1><!-- Blog title -->Little Corner Cloud Space</h1>
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="/upload" method="post" enctype="multipart/form-data">
             <p class="phint">
                 File Upload: 
                 <input type="file" name="file">
@@ -58,14 +58,14 @@
             <tr>
                 <td align="left" class="address" width="80%">
                     {%if one[2]%}
-                        {{one[2]}}  UID: {{one[3]}}
+                    {{one[2]}}  UID: {{one[3]}}
                     {%endif%}
                 </td>
-				{%if one[0].endswith(".mp4")%}
-                	<td width="10%" valign="top" align="right"><a  href="/play?file={{one[0]}}">Preview</a></td>
-				{%else%}
-					<td> </td>
-				{%endif%}
+                {%if one[0].endswith(".mp4") or one[0].endswith(".avi") or one[0].endswith(".mov")%}
+                <td width="10%" valign="top" align="right"><a href="/play?file={{one[0]}}">Preview</a></td>
+                {%else%}
+                <td width="10%" valign="top" align="right"><a href="/file/{{one[0]}}">Preview</a></td>
+                {%endif%}
                 <td width="10%" valign="top" align="right"><a href="/cloud?file={{one[0]}}">Download</a></td>
             </tr>
             </tr>
