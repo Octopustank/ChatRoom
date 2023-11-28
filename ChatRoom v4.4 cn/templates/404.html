@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[404] Little Corner</title>
+<link href="{{ url_for('static',filename='index/styles/style.css') }}" rel="stylesheet" type="text/css">
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="mainwrapper">
+  <header> 
+    <!--**************************************************************************
+    Header starts here. It contains Logo and 3 navigation links. 
+    ****************************************************************************-->
+    <div id="logo">
+      <!-- <img src="logoImage.png" alt="sample logo"> -->
+      <!-- Company Logo text -->
+      Little Corner - 互联网一隅</div>
+   
+  </header>
+  <div id="content">
+    <div class="notOnDesktop"> 
+      <!-- This box is displayed only in mobile and tablet laouts and not in desktop layouts -->
+      <p align="left">您正在使用移动设备浏览，<br/>某些内容可能显示不正确.</p>
+    </div>
+    <section id="mainContent"> 
+      <!--************************************************************************
+    Main Blog content starts here
+    ****************************************************************************-->
+      <h1><!-- Blog title -->啊哦，发生了一点问题 T T</h1>
+      
+      <div id="bannerImage"><img src="{{ url_for('static',filename='error/images/404.png') }}" alt=""/></div>
+		<h3>
+        <!-- Tagline -->
+        <strong>404</strong>：真不巧，页面走丢了~</h3>
+	<aside id="authorInfo"> 
+        <!-- The author information is contained here -->
+        <h2>需要帮忙吗？</h2>
+        <p>- 检查您的输入是否正确.</p>
+      <p>- <a href="/">点我</a>回到主页.</p>
+		<p>- 在Github上报告问题.</p>
+      </aside><p style="color: white">- </p>
+    </section>
+    <section id="sidebar"> 
+      <!--************************************************************************
+    Sidebar starts here. It contains a box, sample image and 6 links
+    ****************************************************************************-->
+	  <h2><strong>你先别急</strong></h2>
+		<div id="adimage"><img src="{{ url_for('static',filename='error/images/noji.gif') }}" alt=""/></div>
+		
+		<p style="color: white">- </p>
+    </section>
+    
+  </div>
+	
+		
+  <div id="footerbar"><!-- Small footerbar at the bottom --></div>
+</div>
+</body>
+</html>

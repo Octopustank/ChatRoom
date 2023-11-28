@@ -1,17 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ChatRoom v4.0",
-    "\\ChatRoom v4.0\\static",
-    "\\ChatRoom v4.0\\static\\error",
-    "\\ChatRoom v4.0\\static\\error\\images",
-    "\\ChatRoom v4.0\\static\\index",
-    "\\ChatRoom v4.0\\static\\index\\images",
-    "\\ChatRoom v4.0\\static\\index\\styles",
-    "\\ChatRoom v4.0\\static\\register",
-    "\\ChatRoom v4.0\\static\\register\\styles",
-    "\\ChatRoom v4.0\\templates"
+    "\\ChatRoom v4.3",
+    "\\ChatRoom v4.3 cn",
+    "\\ChatRoom v4.3 cn\\static",
+    "\\ChatRoom v4.3 cn\\static\\cloud",
+    "\\ChatRoom v4.3 cn\\static\\cloud\\styles",
+    "\\ChatRoom v4.3 cn\\static\\register",
+    "\\ChatRoom v4.3 cn\\static\\register\\images",
+    "\\ChatRoom v4.3 cn\\static\\register\\styles",
+    "\\ChatRoom v4.3\\templates"
   ],
-  "SelectedNode": "\\ChatRoom v4.0\\server.py",
+  "SelectedNode": "\\ChatRoom v4.3 cn\\server.py",
   "PreviewInSolutionExplorer": false
 }

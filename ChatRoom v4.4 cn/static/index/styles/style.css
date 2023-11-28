@@ -1,0 +1,310 @@
+@charset "UTF-8";
+#mainwrapper header {
+	/*Header */
+	background-color: #6972C6;
+	overflow: auto;
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, STSong, SimSun, "serif";
+	font-style: normal;
+	font-weight: 400;
+}
+#mainwrapper header #logo {
+	/* Company Logo text */
+	width: 28%;
+	float: left;
+	padding-left: 2%;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	color: white;
+}
+#mainwrapper header nav {
+	/*Nav bar containing links in header */
+	text-align: right;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-right: 2%;
+	width: 68%;
+	float: left;
+	color: white;
+}
+header nav a {
+	/* Links in header */
+	padding-right: 2%;
+	color: white;
+}
+#content #mainContent h1, #content #mainContent h2 {
+	/* Styling for main headings */
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	font-size: 36px;
+	color: #474d87;
+}
+#content #mainContent h3 {
+	/*Captions ot Taglines */
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	font-style: normal;
+	font-weight: 200;
+	color: #444765;
+}
+#content #mainContent #bannerImage {
+	/*Container for main banner image */
+	width: 100%;
+	background-color: rgba(208,207,207,1.00);
+}
+#content #mainContent p {
+	/* All paragraphs under maincontent */
+	color: #444765;
+	font-family: "Lucida Bright", "DejaVu Serif", Georgia, STFangsong, SimSun, "serif";
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 200;
+	text-align: justify;
+}
+#content #mainContent #authorInfo {
+	/* Author info section */
+	font-family: "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	background-color: aliceblue;
+	border: 1px solid #6972C6;
+}
+
+#content #mainContent #authorInfo h2 {
+	font-size: 24px;
+	padding-left: 2%;
+	padding-top: 5px;
+}
+
+#content #mainContent #authorInfo p {
+	color: #444765;
+	padding-left: 2%;
+	padding-top: 0px;
+	padding-bottom: 11px;
+	padding-right: 2%;
+}
+footer article {
+	/* Footer articles */
+	width: 46%;
+	float: left;
+	padding-left: 2%;
+	padding-right: 2%;
+	text-align: justify;
+	font-family: source-sans-pro, sans-serif;
+	font-style: normal;
+	font-weight: 200;
+	color: rgba(146,146,146,1.00);
+}
+footer article h3 {
+	/* Footer article titles */
+	text-align: center;
+	font-family: montserrat, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+}
+#mainContent {
+	/* Container for the blog post in individal blog view */
+	padding-left: 2%;
+	width: 71%;
+	float: left;
+	padding-right: 2%;
+	padding-top: 41px;
+}
+#mainwrapper #content #sidebar {
+	/* Sidebar*/
+	width: 19%;
+	padding-left: 2%;
+	padding-right: 2%;
+	float: left;
+	background-color: rgba(246,246,246,1.00);
+	margin-top: 150px;
+	padding-top: 32px;
+}
+#mainwrapper {
+	/* Container of all content */
+	width: 94%;
+	overflow: auto;
+	margin-left: 3%;
+}
+#content #sidebar h2 {
+	/* Text box in sidebar */
+	width: 98%;
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	font-size: 24px;
+	color: #444765;
+}
+#content #sidebar #adimage {
+	/* Container for Image in sidebar */
+	width: 100%;
+	background-color: rgba(208,207,207,1.00);
+	margin-top: 46px;
+	float: none;
+	overflow: auto;
+}
+nav ul li {
+	list-style-type: none;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+nav ul {
+	padding-left: 0%;
+}
+nav ul li a {
+	font-family: "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	font-size: 18px;
+	color: #444765;
+	text-decoration: none;
+}
+#footerbar {
+	/* Footer bar at the bottom of the page */
+	height: 18px;
+	clear: both;
+	background-color: rgba(208,207,207,1.00);
+	width: 100%;
+}
+footer {
+	/* Container for footer artices */
+	width: 71%;
+	padding-left: 2%;
+	padding-right: 2%;
+}
+footer a {
+	font-family: "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	font-size: 16px;
+	color: darkslateblue;
+	text-decoration: none;
+}
+
+.notOnDesktop {
+	/*element to be displayed only in mobile view and tabet view */
+	display: none;
+}
+#mainContent #bannerImage img {
+	/* Actual banner image */
+	width: 100%;
+}
+#sidebar #adimage img {
+	/* Image in sidebar */
+	width: 100%;
+	float: left;
+}
+#mainwrapper header nav a {
+	/* Links in header */
+	color: rgba(146,146,146,1.00);
+	text-decoration: none;
+}
+
+/* Tablet view */
+@media screen and (max-width:769px) {
+.notOnDesktop {
+	/* Search box shown only in mobile view and Tablet view */
+	display: block;
+	text-align: right;
+	padding-right: 8px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	width: 96%;
+}
+#content .notOnDesktop p {
+	height: 18px;
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	text-align: center;
+}
+#mainContent {
+	/* Container for the blog post */
+	padding-top: 0px;
+	float: none;
+	width: 96%;
+}
+#sidebar input {
+	/* Search box in sidebar */
+	display: none;
+}
+#mainwrapper #content #sidebar {
+	/* Sidebar*/
+	float: none;
+	width: 92%;
+	padding-top: 13px;
+	overflow: auto;
+	margin-top: 3px;
+	margin-left: 2%;
+	padding-bottom: 13px;
+}
+#content #sidebar #adimage {
+	/* Image in sidebar */
+	width: 60%;
+	margin-top: 0px;
+	float: left;
+}
+#content #sidebar nav {
+	/* Navigation links in sidebar */
+	width: 36%;
+	float: left;
+	padding-left: 4%;
+}
+#sidebar nav ul {
+	margin-top: 0px;
+}
+footer {
+	/* Footer region */
+	width: 96%;
+	padding-left: 2%;
+	padding-right: 2%;
+}
+#content footer article {
+	/*Each footer article */
+	width: 46%;
+}
+#mainwrapper header {
+	/* Header */
+	width: 100%;
+}
+}
+
+/* Mobile view */
+@media screen and (max-width:480px) {
+#mainwrapper header #logo {
+	/* Company Logo text in header */
+	width: 96%;
+	margin-left: 2%;
+}
+#mainwrapper header nav {
+	/*navigation links in header */
+	text-align: center;
+	background-color: rgba(255,255,255,1.00);
+	width: 98%;
+}
+#content #sidebar #adimage {
+	/* Container for image in sidebar */
+	width: 100%;
+}
+#content #sidebar nav {
+	/* Navigation bar for links in sidebar */
+	width: 96%;
+	padding-top: 7px;
+}
+#sidebar nav ul li {
+	display: inline-block;
+	width: 32%;
+	text-align: center;
+}
+#mainwrapper #content #sidebar {
+	/* sidebar */
+	padding-bottom: 0px;
+}
+#content .notOnDesktop {
+	/* Search box shown only in mobile and tablet view */
+	width: 100%;
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+#content .notOnDesktop p {
+	width: 80%;
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, STSong, SimSun, "serif";
+	text-align: center;
+}
+#content #mainContent h3 {
+	/* Title under maincontent, if any */
+	font-size: 14px;
+}
+#content footer article {
+	/* Each foter article */
+	width: 96%;
+}
+}
