@@ -8,7 +8,7 @@ from urllib.parse import quote
 from init import *
 
 IP = "0.0.0.0"
-PORT = 114
+PORT = 80
 
 FILE_MAXSIZE = 500 * 1024 * 1024 # 云盘文件大小限制：500MB
 
@@ -320,3 +320,4 @@ if __name__ =="__main__":
     BACK_LOG_LST, BACK_LOG_LEN = init_backlog()
     PATH_FILE_JS, PATH_FILES, FILE_LIST = init_file_sending()
     app.run(host=IP, port=PORT, debug=True)
+    #app.run(host=IP, port=PORT, debug=True, ssl_context = ('ssl/littlecorner.space_bundle.crt', 'ssl/littlecorner.space.key'))
