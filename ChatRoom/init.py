@@ -3,6 +3,7 @@
 import datetime as dt
 import json as js
 import os
+import socket
 
 # 获取工作路径
 def init_path():
@@ -88,6 +89,23 @@ def init_file_sending():
                 flag = True
         if flag: write_file(PATH_FILE_JS, FILE_LIST)#若有文件变动，修正该问题
     return [PATH_FILE_JS, PATH_FILES, FILE_LIST]
+
+
+def getip():
+    try:
+        s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8',80))
+        ip=s.getsockname()[0]
+    except Exception as err:
+        print('error:network error')
+        print('任意键退出',end='');input()
+        sys.exit()
+    finally:
+        s.close()
+    return ip
+
+def self_ipRefresh(obj):
+    return obj.refresh(getip())
 
 #处理文件名防止重名
 def check_filename(path,original_name):

@@ -5,7 +5,9 @@ from flask import Flask, render_template, request, redirect, send_file, flash, s
 import datetime as dt
 import os
 from urllib.parse import quote
+
 from init import *
+import timeView
 
 IP = "0.0.0.0"
 PORT = 80
@@ -26,15 +28,14 @@ def index():
         return redirect('/login')
     else:
         userid = USERDB[uid][0]
-        HOUR_NOW = dt.datetime.now().hour
-        if HOUR_NOW in range(5,12):
-            return render_template("index.html", greetings="🌅 Good Morning", userid=userid, addr=addr)
-        elif HOUR_NOW in range(12,18):
-            return render_template("index.html", greetings="🌞 Good Afternoon", userid=userid, addr=addr)
-        elif HOUR_NOW in range(18,22):
-            return render_template("index.html", greetings="🌇 Good Evening", userid=userid, addr=addr)
-        else:
-            return render_template("index.html", greetings="🌙 Good Night", userid=userid, addr=addr)
+        
+        if addr not in IP_LIST: # 新ip
+            IP_LIST[addr] = timeView.IP_VIEW() # 建立新的运算对象
+        view_banner = IP_LIST[addr].refresh(addr) # 进行计算
+        if view_banner == None: # 计算失败
+            view_banner = "Main_noon_bg_summer.png" # 使用默认情况
+ 
+        return render_template("index.html", greetings="Welcome! ", viewBanner=view_banner, userid=userid, addr=addr)
 
 # 聊天主页面
 @app.route("/chatroom/")          
@@ -308,4 +309,6 @@ if __name__ =="__main__":
     DATA_LST, LOGFILE, UIDB, UIDFILE, USERDB, USERFILE, floor = init_file()
     BACK_LOG_LST, BACK_LOG_LEN = init_backlog()
     PATH_FILE_JS, PATH_FILES, FILE_LIST = init_file_sending()
+    timeView.init()
+    IP_LIST = {}
     app.run(host=IP, port=PORT, debug=True)
